@@ -43,6 +43,11 @@ jobs:
         run: npm ci
 
       - name: Version, build, tag & publish
-        run: npx nx release --specifier=${{ inputs.bump }} --yes
+        run: |
+          if [ -z "$(git tag -l 'v*')" ]; then
+            npx nx release --specifier=${{ inputs.bump }} --first-release --yes
+          else
+            npx nx release --specifier=${{ inputs.bump }} --yes
+          fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

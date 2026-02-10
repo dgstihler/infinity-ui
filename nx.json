@@ -67,8 +67,19 @@
     }
   },
   "release": {
+    "projects": ["components"],
+    "releaseTagPattern": "v{version}",
     "version": {
-      "preVersionCommand": "npx nx run-many -t build"
+      "preVersionCommand": "npx nx run-many -t build",
+      "conventionalCommits": false
+    },
+    "changelog": {
+      "projectChangelogs": false,
+      "workspaceChangelog": false
+    },
+    "git": {
+      "commit": false,
+      "tag": true
     }
   }
 }
