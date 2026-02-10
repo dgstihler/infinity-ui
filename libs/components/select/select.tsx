@@ -42,7 +42,7 @@ function SelectItem({ className, children, ...props }: SelectItemProps) {
 	return (
 		<SelectPrimitive.Item
 			data-slot="select-item"
-			className={twMerge(itemVariants(), className)}
+			className={twMerge(itemVariants(), className as string)}
 			{...props}
 		>
 			<SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>

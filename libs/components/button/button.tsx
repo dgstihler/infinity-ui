@@ -3,7 +3,7 @@ import { twMerge } from 'tailwind-merge'
 import type { ButtonProps, IconButtonProps } from './types'
 import { buttonSizeVariants, iconSizeVariants, solidStyles, outlineStyles, ghostStyles } from './variants'
 
-type SizeVariantsFn = (props: { size?: string }) => string
+type SizeVariantsFn = (props: { size?: 'small' | 'medium' | 'large' }) => string
 
 function Base({ className, size, disabled, children, variantStyles, sizeVariants, ...props }: (ButtonProps | IconButtonProps) & { variantStyles: string; sizeVariants: SizeVariantsFn }) {
 	return (

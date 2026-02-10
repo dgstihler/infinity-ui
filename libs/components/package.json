@@ -1,12 +1,40 @@
 {
   "name": "@infinity-ui/components",
   "version": "0.0.1",
+  "description": "A compound-first React component library built with React 19, TypeScript, Tailwind CSS v4, and Base UI.",
+  "license": "MIT",
+  "type": "module",
   "main": "./index.js",
+  "module": "./index.js",
   "types": "./index.d.ts",
   "exports": {
     ".": {
-      "import": "./index.mjs",
-      "require": "./index.js"
+      "types": "./index.d.ts",
+      "import": "./index.js"
     }
+  },
+  "sideEffects": false,
+  "files": [
+    "**/*.js",
+    "**/*.d.ts",
+    "**/*.d.ts.map",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dgstihler/infinity-ui.git",
+    "directory": "libs/components"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "@base-ui/react": "^1.0.0",
+    "lucide-react": ">=0.300.0",
+    "tailwind-merge": "^3.0.0",
+    "tailwind-variants": "^3.0.0"
   }
 }

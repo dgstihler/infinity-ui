@@ -45,7 +45,7 @@ function SwitchItem({ className, size, children, disabled, value, ...props }: Sw
 		>
 			<SwitchPrimitive.Root
 				data-slot="switch-root"
-				className={twMerge(switchVariants({ size: resolvedSize }), isReadOnly && 'cursor-default', className)}
+				className={twMerge(switchVariants({ size: resolvedSize }), isReadOnly && 'cursor-default', className as string)}
 				disabled={isDisabled}
 				{...(group && value ? { checked: isChecked, onCheckedChange: handleChange } : {})}
 				readOnly={isReadOnly}

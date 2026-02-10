@@ -11,7 +11,7 @@ function ModalRoot({ children, showClose = false, ...props }: ModalProps) {
 	const triggers: React.ReactNode[] = []
 	const content: React.ReactNode[] = []
 
-	Children.forEach(children, (child) => {
+	Children.forEach(children as React.ReactNode, (child) => {
 		if (isValidElement(child) && child.type === DialogPrimitive.Trigger) {
 			triggers.push(child)
 		} else {
@@ -53,7 +53,7 @@ function ModalTitle({ className, ...props }: ModalTitleProps) {
 	return (
 		<DialogPrimitive.Title
 			data-slot="modal-title"
-			className={twMerge('text-xl font-semibold text-black', className)}
+			className={twMerge('text-xl font-semibold text-black', className as string)}
 			{...props}
 		/>
 	)
@@ -65,7 +65,7 @@ function ModalDescription({ className, ...props }: ModalDescriptionProps) {
 	return (
 		<DialogPrimitive.Description
 			data-slot="modal-description"
-			className={twMerge('text-sm text-neutral-500', className)}
+			className={twMerge('text-sm text-neutral-500', className as string)}
 			{...props}
 		/>
 	)
