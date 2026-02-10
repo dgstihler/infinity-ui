@@ -1,96 +1,202 @@
-# InfinityUi
+<p align="center">
+  <img src="https://img.shields.io/badge/React-19-blue" alt="React 19" />
+  <img src="https://img.shields.io/badge/TypeScript-strict-blue" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-v4-38bdf8" alt="Tailwind CSS v4" />
+  <img src="https://img.shields.io/badge/Base_UI-1.1-black" alt="Base UI" />
+  <img src="https://img.shields.io/badge/NX-monorepo-143055" alt="NX" />
+</p>
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+# Infinity UI
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+A compound-first React component library with 10 production-ready components, built with React 19, TypeScript, Tailwind CSS v4, and Base UI primitives.
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/intro#learn-nx?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+> **Design:** [Figma — Infinity UI](https://www.figma.com/design/p3mAmoXnY2WrnNI56TyEwF/Infinity-ui?node-id=5190-533)
 
-## Run tasks
+---
 
-To run tasks with Nx use:
+## Getting Started
 
-```sh
-npx nx <target> <project-name>
+```bash
+# Install dependencies
+npm install
+
+# Run Storybook
+npx nx storybook storybook
 ```
 
-For example:
+---
 
-```sh
-npx nx build myproject
+## Stack
+
+| Layer | Technology | Role |
+|-------|-----------|------|
+| **Framework** | React 19 | Native ref support — no `forwardRef` |
+| **Language** | TypeScript strict | Full type safety with `ComponentProps` + `VariantProps` |
+| **Styling** | Tailwind CSS v4 | `@tailwindcss/vite` plugin + `@source` for monorepo scanning |
+| **Primitives** | Base UI React | Headless accessible components (Select, Combobox, Checkbox, Switch, Dialog) |
+| **Variants** | Tailwind Variants (`tv`) | Variant definitions with compound support |
+| **Class Merge** | Tailwind Merge (`twMerge`) | Intelligent className overrides |
+| **Icons** | Lucide React | Consistent icon set |
+| **Monorepo** | NX | Project graph, caching, task orchestration |
+| **Build** | Vite 7 | Fast dev server and builds |
+| **Docs** | Storybook 10 | Interactive component playground |
+
+---
+
+## Project Structure
+
+```
+infinity-ui/
+├── apps/
+│   └── storybook/                    # Storybook dev app
+│       ├── .storybook/               # Storybook config
+│       └── src/
+│           ├── stories/              # Component stories
+│           └── styles/
+│               └── themes.css        # Tailwind v4 theme + @source
+│
+└── libs/
+    └── components/                   # @infinity-ui/components
+        ├── index.ts                  # Public API exports
+        ├── shared/                   # Field (universal form wrapper)
+        │   ├── field.tsx
+        │   ├── field-types.ts
+        │   └── field-variants.ts
+        ├── button/                   # Each component follows
+        │   ├── button.tsx            #   3-file pattern:
+        │   ├── types.ts              #   component + types + variants
+        │   └── variants.ts
+        ├── input/
+        ├── select/
+        ├── autocomplete/
+        ├── checkbox/
+        ├── switch/
+        ├── modal/
+        ├── toast/
+        └── badge/
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+---
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## Components
 
-## Add new projects
+| Component | Compound Pattern | Key Features |
+|-----------|-----------------|--------------|
+| **Button** | `Solid` · `Outline` · `Ghost` · `SolidIcon` · `OutlineIcon` · `GhostIcon` | 3 sizes, rounded option |
+| **Input** | `Counter` | Direct `<input>` element, 2 sizes |
+| **Select** | `Item` | Base UI dropdown, 2 sizes, disabled items |
+| **Autocomplete** | — | Searchable combobox with `items: string[]` |
+| **Checkbox** | `Group` | Indeterminate, single-select, rounded, strikethrough |
+| **Switch** | `Group` | 2 sizes, single-select, read-only |
+| **Field** | `Label` · `Hint` · `Footer` | Universal form wrapper, 5 hint categories |
+| **Modal** | `Trigger` · `Title` · `Description` · `Footer` · `Close` | Base UI Dialog with animations |
+| **Toast** | `Icon` · `Label` · `Close` | 5 semantic categories |
+| **Badge** | `Icon` · `Label` · `Close` | 7 categories |
 
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
+---
 
-To install a new plugin you can use the `nx add` command. Here's an example of adding the React plugin:
-```sh
-npx nx add @nx/react
+## Architecture Decisions
+
+### Compound Components via `Object.assign`
+
+```tsx
+// Definition
+const Button = Object.assign(ButtonRoot, {
+  Solid: ButtonSolid,
+  Outline: ButtonOutline,
+  // ...
+})
+
+// Usage
+<Button.Solid size="large">Save</Button.Solid>
 ```
 
-Use the plugin's generator to create new projects. For example, to create a new React app or library:
+### Universal Field Wrapper
 
-```sh
-# Generate an app
-npx nx g @nx/react:app demo
+Form inputs don't own their label/hint — a shared `Field` component wraps them all:
 
-# Generate a library
-npx nx g @nx/react:lib some-lib
+```tsx
+<Field>
+  <Field.Label>Email</Field.Label>
+  <Input type="email" placeholder="you@example.com" />
+  <Field.Footer>
+    <Field.Hint category="danger">Invalid email address</Field.Hint>
+    <Input.Counter current={25} max={64} />
+  </Field.Footer>
+</Field>
 ```
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+### 3-File Component Pattern
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Set up CI!
-
-### Step 1
-
-To connect to Nx Cloud, run the following command:
-
-```sh
-npx nx connect
+```
+component/
+├── component.tsx    # Implementation + Object.assign exports
+├── types.ts         # Props interfaces (ComponentProps + VariantProps)
+└── variants.ts      # tv() variant definitions
 ```
 
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
+### Key Conventions
 
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- **Named exports only** — no default exports
+- **`data-slot`** on every rendered element
+- **`data-[state]:`** for conditional styles (disabled, checked, etc.)
+- **`twMerge(variants(), className)`** — all components accept className overrides
+- **Lowercase with hyphens** — `user-card.tsx`, not `UserCard.tsx`
 
-### Step 2
+---
 
-Use the following command to configure a CI workflow for your workspace:
+## Tailwind CSS v4 Setup
 
-```sh
-npx nx g ci-workflow
+The monorepo requires `@source` to scan classes from `libs/`:
+
+```css
+/* apps/storybook/src/styles/themes.css */
+@import 'tailwindcss';
+@source "../../../../libs/components/**/*.{ts,tsx}";
 ```
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+The `@tailwindcss/vite` plugin is **required** in `vite.config.mts`:
 
-## Install Nx Console
+```ts
+import tailwindcss from '@tailwindcss/vite'
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+export default defineConfig({
+  plugins: [tailwindcss(), react(), nxViteTsPaths(), nxCopyAssetsPlugin(['*.md'])],
+})
+```
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+---
 
-## Useful links
+## Commands
 
-Learn more:
+```bash
+# Development
+npx nx storybook storybook        # Run Storybook
 
-- [Learn more about this workspace setup](https://nx.dev/getting-started/intro#learn-nx?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+# Build
+npx nx build components           # Build component library
+npx nx run-many -t build          # Build all projects
 
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+# Quality
+npx nx lint components            # Lint library
+npx nx lint storybook             # Lint Storybook
+
+# NX
+npx nx graph                      # Visualize project graph
+npx nx show projects              # List all projects
+```
+
+---
+
+## Design
+
+| Resource | Link |
+|----------|------|
+| Figma | [Infinity UI — Component Library](https://www.figma.com/design/p3mAmoXnY2WrnNI56TyEwF/Infinity-ui?node-id=5190-533) |
+| Components | [`libs/components/README.md`](libs/components/README.md) |
+
+---
+
+## License
+
+MIT
