@@ -1,5 +1,5 @@
 {
-  "name": "@infinity-ui/components",
+  "name": "@infinityui/components",
   "version": "1.0.0",
   "description": "A compound-first React component library built with React 19, TypeScript, Tailwind CSS v4, and Base UI.",
   "license": "MIT",
@@ -22,7 +22,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/dgstihler/infinity-ui.git",
+    "url": "https://github.com/infinityui/infinity-ui.git",
     "directory": "libs/components"
   },
   "publishConfig": {

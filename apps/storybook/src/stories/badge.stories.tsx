@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Badge } from '@infinity-ui/components'
+import { Badge } from '@infinityui/components'
 import { Check } from 'lucide-react'
 
 const meta = {

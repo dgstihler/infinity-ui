@@ -32,7 +32,7 @@ jobs:
         with:
           node-version: 24
           registry-url: https://npm.pkg.github.com
-          scope: '@dgstihler'
+          scope: '@infinityui'
 
       - name: Configure git
         run: |
