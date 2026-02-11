@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Toast } from '@dgstihler/components'
+import { Toast } from '@infinity-ui/components'
 import { Info } from 'lucide-react'
 
 const meta = {

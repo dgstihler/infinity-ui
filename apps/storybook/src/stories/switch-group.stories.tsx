@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Switch, Field } from '@dgstihler/components'
+import { Switch, Field } from '@infinity-ui/components'
 
 const meta = {
 	title: 'Components/Switch Group',

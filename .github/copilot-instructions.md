@@ -14,7 +14,7 @@ infinity-ui/
 │       └── src/styles/
 │           └── themes.css  # Tailwind v4 theme definitions
 └── libs/
-    └── components/         # Single consolidated UI library (@dgstihler/components)
+    └── components/         # Single consolidated UI library (@infinity-ui/components)
         ├── button/
         │   ├── button.tsx      # Component logic
         │   ├── variants.ts     # Tailwind variants
@@ -256,7 +256,7 @@ npx nx g @nx/react:library components \
   --style=css \
   --unitTestRunner=none \
   --publishable \
-  --importPath=@dgstihler/components
+  --importPath=@infinity-ui/components
 ```
 
 ### Add New Component

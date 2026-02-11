@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Checkbox, Field } from '@dgstihler/components'
+import { Checkbox, Field } from '@infinity-ui/components'
 
 const meta = {
 	title: 'Components/Checkbox',

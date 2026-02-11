@@ -1,5 +1,5 @@
 {
-  "name": "@dgstihler/source",
+  "name": "@infinity-ui/source",
   "$schema": "node_modules/nx/schemas/project-schema.json",
   "targets": {
     "local-registry": {

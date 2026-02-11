@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Modal, Button } from '@dgstihler/components'
+import { Modal, Button } from '@infinity-ui/components'
 
 const meta = {
 	title: 'Components/Modal',

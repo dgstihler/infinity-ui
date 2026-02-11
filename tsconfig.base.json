@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@dgstihler/components": ["libs/components/index.ts"]
+      "@infinity-ui/components": ["libs/components/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
