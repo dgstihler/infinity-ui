@@ -8,4 +8,4 @@ export interface AutocompleteProps extends ComponentProps<typeof Combobox.Root> 
 	items: string[]
 }
 
-export interface AutocompleteItemProps extends ComponentProps<typeof Combobox.Item> {}
+export type AutocompleteItemProps = ComponentProps<typeof Combobox.Item>
